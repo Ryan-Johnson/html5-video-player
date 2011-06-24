@@ -1,0 +1,128 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Untitled Document</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+<link type="text/css" rel="stylesheet" href="css/excite-bike/jquery-ui-1.8.13.custom.css"/>
+<script>
+function roundNumber(num, dec) {
+	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+	return result;
+}
+$(document).ready(function(e) {
+
+	$("#theme li a").click(function() { 
+		$("link").attr("href",$(this).attr('rel'));
+		return false;
+	});
+
+	
+	videoplayer = document.getElementById('vidPlayer');	
+	videoplayer.addEventListener("play", function(){
+		$( ".play" ).button( "option", "icons", {primary:'ui-icon-pause'} );
+	},false);
+
+videoplayer.addEventListener("pause", function(){
+		$( ".play" ).button( "option", "icons", {primary:'ui-icon-play'} );
+	} , false);
+	
+	videoplayer.addEventListener("timeupdate", function(){
+		$( "#slider" ).slider( "option", "value", videoplayer.currentTime );
+	secVar0 = roundNumber(videoplayer.currentTime, 0);                            // The initial data, in seconds
+minVar = Math.floor(secVar0/60);  // The minutes
+if(minVar > 10){
+	minVar = Math.floor(secVar0/60);
+	
+}
+else{
+minVar = "0"+ Math.floor(secVar0/60);	
+}
+secVar = secVar0 % 60;              // The balance of seconds
+if(secVar > 10){
+	secVar = secVar0 % 60; 
+	
+}
+else{
+secVar = "0"+ secVar0 % 60; 
+}
+		$('#time').html(minVar+":"+secVar);
+	}, false);
+	
+    $( ".play" ).button({
+            icons: {
+                primary: "ui-icon-play"
+            },
+            text: false
+        })
+
+		videoplayer.addEventListener("canplay" ,function(){
+			$( "#slider" ).slider({
+			max:videoplayer.duration,
+		slide: function(event, ui) {videoplayer.currentTime = $( "#slider" ).slider( "option", "value" ); }
+		}, false);
+			
+		},false)
+		
+
+		
+});
+
+function playPause(){
+videoplayer = document.getElementById('vidPlayer');	
+if(videoplayer.paused || videoplayer.ended){
+	videoplayer.play();
+}
+else{
+	videoplayer.pause();
+}
+}
+
+</script>
+<style>
+.play {
+	display:inline;
+}
+#controls {
+	height:25px;
+	margin:0px;
+	padding:0px;
+	width:398px;
+}
+#slider {
+	width:250px;
+	display:inline-block;
+	margin-left:10px;
+	top:-0px;
+}
+button.ui-button-icon-only {
+	width:25px;
+	height:25px;
+}
+#time {
+	display:inline-block;
+	position:relative;
+	top:-3px;
+}
+</style>
+</head>
+
+<body>
+<video  id="vidPlayer" width="400">
+  <source src="../canvas/partyrock.webm" />
+  <source src="partyrock.ogg"/>
+</video>
+<div id="controls" class="ui-widget-header">
+  <button class="play" onClick="playPause();"></button>
+  <div id="slider" style=""></div>
+  <div id="time">00:00</div>
+  <ul id="theme" class="ui-widget-header">
+  <li><a href="#" rel="css/ui-darkness/jquery-ui-1.8.13.custom.css">ui darkness</a></li>
+ 
+  <li><a href="#" rel="css/excite-bike/jquery-ui-1.8.13.custom.css">excite bike</a></li>
+
+  </ul>
+</div>
+</body>
+</html>
