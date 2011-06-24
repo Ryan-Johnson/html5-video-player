@@ -69,3 +69,8 @@ else{
 	videoplayer.pause();
 }
 }
+
+function speedChange(rate){
+videoplayer = document.getElementById('vidPlayer');	
+videoplayer.playbackRate = rate;
+}
