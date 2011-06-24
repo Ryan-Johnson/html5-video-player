@@ -23,7 +23,7 @@ videoplayer.addEventListener("pause", function(){
 		$( "#slider" ).slider( "option", "value", videoplayer.currentTime );
 	secVar0 = roundNumber(videoplayer.currentTime, 0);                            // The initial data, in seconds
 minVar = Math.floor(secVar0/60);  // The minutes
-if(minVar > 10){
+if(minVar > 9){
 	minVar = Math.floor(secVar0/60);
 	
 }
@@ -31,7 +31,7 @@ else{
 minVar = "0"+ Math.floor(secVar0/60);	
 }
 secVar = secVar0 % 60;              // The balance of seconds
-if(secVar > 10){
+if(secVar > 9){
 	secVar = secVar0 % 60; 
 	
 }
